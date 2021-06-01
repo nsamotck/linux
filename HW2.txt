@@ -1,0 +1,56 @@
+1. Навигация по файловой системе. Попрактиковаться в перемещении между каталогами, используя полный и относительный путь. Перечислить, какие параметры команды cd позволят быстро вернуться в домашний каталог, позволят перейти на уровень выше.
+
+Ответ: Ниже представлен переход из корневого каталога в каталог пользователя с использованием абсолютного пути, далее - переход в каталог .ssh с помощью относительного пути, далее - использование параметра ~ для быстрого перехода в домашний каталог, и в конце - использование ссылки .. для перехода в родительский каталог.
+
+user@nickserver:/$ pwd
+/
+user@nickserver:/$ cd /home/user
+user@nickserver:~$ cd .ssh
+user@nickserver:~/.ssh$ cd ~
+user@nickserver:~$ pwd
+/home/user
+user@nickserver:~$ cd ..
+user@nickserver:/home$
+
+2. Управление файлами и каталогами и текстовые редакторы. Создать файл с наполнением, используя несколько способов. Использовать разобранные текстовые редакторы для наполнения файлов данными. Создать копии созданных файлов, создать несколько каталогов с подкаталогами, перенести несколько файлов в созданные каталоги. Перечислить команды и используемые параметры команд.
+
+Ответ:
+
+Создание пустого файла при помощи команды touch и создание файла с наполнением "Hello World!"
+user@nickserver:~/testcatalog$ touch file1
+user@nickserver:~/testcatalog$ ls
+file1
+user@nickserver:~/testcatalog$ echo "Hello World!" > file2
+user@nickserver:~/testcatalog$ ls
+file1  file2
+user@nickserver:~/testcatalog$ cat file2
+Hello World!
+
+На скриншоте screen1.png представлено добавление строки "Hello!" в file1 через редактор vim с последующим сохранением.
+На скриншоте screen2.png представлено добавление строки "Hello nano!" в file1 через редактор nano с последующим сохранением через Ctrl+O.
+
+Создание каталога testcatalog2 с суб-каталогом subcatalog в домашней директории
+user@nickserver:~/testcatalog$ mkdir -p /home/user/testcatalog2/subcatalog
+user@nickserver:~/testcatalog$ cd ..
+user@nickserver:~$ ls
+testcatalog  testcatalog2
+user@nickserver:~$ cd testcatalog2
+user@nickserver:~/testcatalog2$ ls
+subcatalog
+
+Копирование файла file1 в testcatalog2
+user@nickserver:~/testcatalog$ cp file1 /home/user/testcatalog2
+user@nickserver:~/testcatalog$ cd ..
+user@nickserver:~$ cd testcatalog2
+user@nickserver:~/testcatalog2$ ls
+file1  subcatalog
+
+Копирование файла file2 в subcatalog
+user@nickserver:~/testcatalog$ cp file2 ../testcatalog2/subcatalog/
+user@nickserver:~/testcatalog$ cd ../testcatalog2/subcatalog/
+user@nickserver:~/testcatalog2/subcatalog$ ls
+file2
+
+3. * Используя дополнительный материал, настроить авторизацию по SSH с использованием ключей.
+
+Скриншот аутентификации по ключу через Putty - Auth.png
