@@ -1,0 +1,58 @@
+1. Управление пользователями:
+a) создать пользователя, используя утилиту useradd;
+
+user@nickserver:~$ sudo useradd -m -s /bin/bash user1
+[sudo] password for user:
+user@nickserver:~$ tail -1 /etc/passwd
+user1:x:1003:1003::/home/user1:/bin/bash
+
+b) удалить пользователя, используя утилиту userdel;
+user@nickserver:~$ sudo userdel -r user1
+userdel: user1 mail spool (/var/mail/user1) not found
+user@nickserver:~$ tail -1 /etc/passwd
+testuser2:x:1002:1002:,,,:/home/testuser2:/bin/bash (user1 был последним в списке на момент удаления)
+
+2. Управление группами:
+a) создать группу с использованием утилит и в ручном режиме;
+
+user@nickserver:~$ sudo groupadd testteam1
+user@nickserver:~$ tail -1 /etc/group
+testteam1:x:1003:
+user@nickserver:~$ sudo addgroup testteam2
+Adding group `testteam2' (GID 1004) ...
+Done.
+user@nickserver:~$ tail -1 /etc/group
+testteam2:x:1004:
+
+b) попрактиковаться в смене групп у пользователей;
+
+- Попробовал изменить основную группу у пользователей testuser1 и testuser2:
+user@nickserver:~$ sudo usermod -g testteam1 testuser1
+user@nickserver:~$ sudo usermod -g testteam1 testuser2
+
+- Почему-то команда cat /etc/group не показала testuser1 и testuser2 в групппе testteam1:
+testteam1:x:1003:
+
+- Но при создании файла из под testuser1 владельцем указывается группа testteam1:
+user@nickserver:~$ su - testuser1
+Password:
+testuser1@nickserver:~$ touch newfile
+testuser1@nickserver:~$ ls -l
+total 0
+-rw-r--r-- 1 testuser1 testteam1 0 Jun  3 10:50 newfile
+
+c) добавить пользователя в группу, не меняя основной;
+
+user@nickserver:~$ sudo usermod -aG testteam2 testuser1
+user@nickserver:~$ tail -1 /etc/group
+testteam2:x:1004:testuser1
+
+d) удалить пользователя из группы.
+
+- Удаление пользователя testuser1 из группы testteam2:
+
+user@nickserver:~$ sudo deluser testuser1 testteam2
+Removing user `testuser1' from group `testteam2' ...
+Done.
+user@nickserver:~$ sudo groups testuser1
+testuser1 : testteam1
