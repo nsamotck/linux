@@ -1,0 +1,20 @@
+1. Потоки ввода/вывода. Создать файл, используя команду echo. Используя команду cat, прочитать содержимое каталога etc, ошибки перенаправить в отдельный файл.
+
+user@nickserver:~$ echo "Hello, world!" > hello.txt
+
+user@nickserver:~$ cat /etc/* 2> errors.log
+
+2. Конвейер (pipeline). Использовать команду cut на вывод длинного списка каталога, чтобы отобразить только права доступа к файлам. Затем отправить в конвейере этот вывод на sort и uniq, чтобы отфильтровать все повторяющиеся строки.
+
+user@nickserver:~$ ls -l | cut -d ' ' -f 1 | sort | uniq -d
+
+3. Создайте файл при помощи команды cat > file_name, напишите текст и завершите комбинацией ctrl+d. Какой сигнал передадим процессу?
+
+user@nickserver:~$ cat > newfile
+one
+one two
+user@nickserver:~$ cat newfile
+one
+one two
+
+Сигнал называется EOF - end of file.
