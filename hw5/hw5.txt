@@ -1,0 +1,65 @@
+2. Дать созданным файлам другие, произвольные имена. Создать новую символическую ссылку. Переместить ссылки в другую директорию.
+
+user@nickserver:~/homework5$ mv file2 renamed2
+
+user@nickserver:~/homework5$ mv file4 renamed4
+
+user@nickserver:~/homework5$ ln -s renamed4 link4
+
+user@nickserver:~/homework5$ mkdir newdir
+
+user@nickserver:~/homework5$ mv link4 ./newdir
+
+user@nickserver:~/homework5$ cat renamed2
+Hello, world!
+user@nickserver:~/homework5$ cat renamed4
+Hello, world!
+
+user@nickserver:~/homework5$ cd newdir
+
+user@nickserver:~/homework5/newdir$ cat link4
+cat: link4: No such file or directory
+
+Символическая ссылка, перемещённая в другую директорию, "ломается".
+
+3. Создать два произвольных файла. Первому присвоить права на чтение и запись для владельца и группы, только на чтение — для всех. Второму присвоить права на чтение и запись только для владельца. Сделать это в численном и символьном виде.
+
+user@nickserver:~/homework5$ touch test1
+
+user@nickserver:~/homework5$ touch test2
+
+Убмраем права на файлы для чистоты эксперимента:
+
+user@nickserver:~/homework5$ chmod = test1
+
+user@nickserver:~/homework5$ ls -l
+
+---------- 1 user user    0 Jun  9 19:10 test1
+-rw-rw-r-- 1 user user    0 Jun  9 19:10 test2
+
+user@nickserver:~/homework5$ chmod = test2
+user@nickserver:~/homework5$ ls -l
+
+---------- 1 user user    0 Jun  9 19:10 test1
+---------- 1 user user    0 Jun  9 19:10 test2
+
+Присваиваем права в символьном виде для первого файла:
+
+user@nickserver:~/homework5$ chmod ug+rw test1
+
+user@nickserver:~/homework5$ chmod o+r test1
+
+user@nickserver:~/homework5$ ls -l
+
+-rw-rw-r-- 1 user user    0 Jun  9 19:10 test1
+---------- 1 user user    0 Jun  9 19:10 test2
+
+Присваиваем права в численном виде для второго файла:
+
+user@nickserver:~/homework5$ chmod 600 test2
+
+user@nickserver:~/homework5$ ls -l
+
+-rw-rw-r-- 1 user user    0 Jun  9 19:10 test1
+-rw------- 1 user user    0 Jun  9 19:10 test2
+
