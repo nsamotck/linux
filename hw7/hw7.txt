@@ -1,0 +1,18 @@
+1. Подключить репозиторий с nginx любым удобным способом, установить nginx и потом удалить nginx, используя утилиту dpkg.
+
+user@nickserver:~$ sudo apt-add-repository ppa:nginx/stable
+
+user@nickserver:~$ ls  /etc/apt/sources.list.d
+nginx-ubuntu-stable-focal.list
+user@nickserver:~$ cat /etc/apt/sources.list.d/nginx-ubuntu-stable-focal.list
+deb http://ppa.launchpad.net/nginx/stable/ubuntu focal main
+# deb-src http://ppa.launchpad.net/nginx/stable/ubuntu focal main
+
+user@nickserver:~$ sudo apt install nginx
+
+user@nickserver:~$ sudo dpkg -r nginx
+
+2. Установить пакет на свой выбор, используя snap.
+
+user@nickserver:~$ sudo snap install zipstream
+zipstream 0.17.3 from Anton Maminov (mamantoha) installed
